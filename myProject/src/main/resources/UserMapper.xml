@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+ 	
+	 <resultMap id="userSelectMap" type="user">
+    <result property="user_id"        column="user_id"        jdbcType="INTEGER"/>
+    <result property="role"           column="role"           jdbcType="VARCHAR"/>
+    <result property="profile"        column="profile"        jdbcType="VARCHAR" />  
+    <result property="state_message"  column="state_message"  jdbcType="VARCHAR" />
+    <result property="join_date"      column="join_date"      jdbcType="DATE" />
+    <result property="nickname"       column="nickname"       jdbcType="VARCHAR" />
+    <result property="password"       column="password"       jdbcType="VARCHAR" />
+    <result property="email"          column="email"          jdbcType="VARCHAR" />
+    <result property="phone"          column="phone"          jdbcType="VARCHAR"  />
+  </resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addUser"		parameterType="user" >
+	 	INSERT
+		INTO users( user_id , role, join_date, nickname, password, email, phone) 
+		VALUES	 (	#{user_id} ,'user', SYSDATE , #{nickname}, #{password} , #{email:VARCHAR}, 
+							#{phone:VARCHAR})
+	</insert>
+	
+	  <!-- SQL : SELECT ONE -->
+   <select  id="getUser"  parameterType="string"  resultMap="userSelectMap">
+    SELECT
+    user_id , role, profile , state_message , join_date , nickname ,  password , email , phone    
+    FROM users 
+    WHERE email = #{value}
+   </select>
+	 	 
+</mapper>

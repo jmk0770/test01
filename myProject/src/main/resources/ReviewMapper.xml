@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewMapper">
+ 	
+	 <resultMap id="reviewSelectMap" type="review">
+    <result property="review_no"  column="review_no"  jdbcType="INTEGER"/>
+    <result property="user_id"    column="user_id"    jdbcType="INTEGER"/>
+    <result property="title"    	column="title"      jdbcType="VARCHAR" />  
+    <result property="period1" 	 	column="period1"  	jdbcType="VARCHAR" />
+    <result property="period2"    column="period2"    jdbcType="VARCHAR" />
+    <result property="writeDate"  column="writeDate"  jdbcType="DATE" />
+    <result property="likeCnt"    column="likeCnt"    jdbcType="INTEGER" />
+    <result property="nationName" column="nationName" jdbcType="VARCHAR" />
+    <result property="content"    column="content"    jdbcType="VARCHAR"  />
+    <result property="image_no"    column="image_no"    jdbcType="INTEGER"  />
+  </resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addReview"		parameterType="review" >
+	 	INSERT
+		INTO reviews( review_no , title, period1, period2, writeDate, nationName, content) 
+		VALUES	 (	seq_product_review_no.nextval ,#{title}, #{period1},#{period2}, SYSDATE, #{nationName}, #{content:VARCHAR})
+	</insert>
+	
+<!-- 	 
+   <select  id="getReview"  parameterType="string"  resultMap="reviewSelectMap">
+    SELECT
+    user_id , role, profile , state_message , join_date , nickname ,  password , email , phone    
+    FROM users 
+    WHERE email = #{value}
+   </select>
+ -->   
+	 	 
+</mapper>
