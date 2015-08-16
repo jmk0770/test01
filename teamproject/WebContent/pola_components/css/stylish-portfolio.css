@@ -1,4 +1,4 @@
-/*!
+f/*!
  * Start Bootstrap - Stylish Portfolio Bootstrap Theme (http://startbootstrap.com)
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
@@ -46,15 +46,15 @@ body {
 
 .btn-light {
     border-radius: 0;
-    color: #333;
-    background-color: #f8f8f8;
+    
+    
 }
 
 .btn-light:hover,
 .btn-light:focus,
 .btn-light:active {
     color: #333;
-    background-color: #f8f8f8;
+    background-color: rgba(255,255,255,0.8);
 }
 
 /* Custom Horizontal Rule */
@@ -69,9 +69,9 @@ hr.small {
     z-index: 1000;
     position: fixed;
     right: 0;
-    width: 200px;
+    width: 250px;
     height: 100%;
-    margin-right: -200px;
+    margin-right: -250px;
     overflow-y: auto;
     background: #222;
     -webkit-transition: all 0.4s ease 0s;
@@ -84,7 +84,7 @@ hr.small {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 200px;
+    width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -135,8 +135,8 @@ hr.small {
 }
 
 #sidebar-wrapper.active {
-    right: 200px;
-    width: 200px;
+    right: 250px;
+    width: 250px;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
     -ms-transition: all 0.4s ease 0s;
@@ -145,7 +145,7 @@ hr.small {
 }
 
 .toggle {
-    margin: 5px 5px 0 0;
+     margin: 3px 3px 0 0; 
 }
 
 /* Header */
@@ -153,9 +153,9 @@ hr.small {
 .header {
     display: table;
     position: relative;
-    width: 100%;
+    width:100%;
     height: 100%;
-    background: url(../img/bg.jpg) no-repeat center center scroll;
+    /* background: url(../img/a.jpg) no-repeat; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -166,11 +166,7 @@ hr.small {
 
 .about {
     padding: 50px 0;
-}
-
-/* our Story */
-.ourStory{
-	padding: 50px 0;
+    margin: 400px 0px 0px 0px;
 }
 
 /* Services */
@@ -213,6 +209,7 @@ hr.small {
 
 .img-portfolio:hover {
     opacity: 0.8;
+    
 }
 
 /* Call to Action */
@@ -239,6 +236,6 @@ hr.small {
 
 /* Footer */
 
-footer {
+/* footer {
     padding: 100px 0;
-}
+} */

@@ -1386,8 +1386,8 @@ img {
 .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive,
 	.thumbnail a>img, .thumbnail>img {
 	display: block;
-	max-width: 100%;
-	height: auto
+	max-width: 400px;
+	height: 270px;
 }
 
 .img-rounded {
@@ -1461,7 +1461,7 @@ hr {
 
 .h1, .h2, .h3, h1, h2, h3 {
 	margin-top: 20px;
-	margin-bottom: 10px
+	margin-bottom: 0px
 }
 
 .h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, h1 .small,
@@ -1605,10 +1605,10 @@ a.text-danger:hover {
 	color: #843534
 }
 
-.bg-primary {
+/* .bg-primary {
 	color: #fff;
 	background-color: #337ab7
-}
+} */
 
 a.bg-primary:hover {
 	background-color: #286090
@@ -1877,7 +1877,8 @@ pre code {
 	position: relative;
 	min-height: 1px;
 	padding-right: 15px;
-	padding-left: 15px
+	padding-left: 15px;
+	padding-bottom: 20px; 
 }
 
 .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3,
@@ -5366,15 +5367,14 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 }
 
 .alert-dismissable, .alert-dismissible {
-	 padding-right: 35px;
+	padding-right: 35px
 }
 
 .alert-dismissable .close, .alert-dismissible .close {
 	position: relative;
 	top: -2px;
 	right: -21px;
-	color: inherit;
-	
+	color: inherit
 }
 
 .alert-success {
@@ -6285,7 +6285,7 @@ button.close {
 }
 
 .modal-open {
-	overflow-y: scroll;
+	overflow: hidden
 }
 
 .modal {
@@ -6320,7 +6320,7 @@ button.close {
 
 .modal-open .modal {
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: auto
 }
 
 .modal-dialog {
@@ -7224,3 +7224,14 @@ button.close {
 		display: none !important
 	}
 }
+
+.animated {
+	    animation-duration: 1s;
+	    animation-fill-mode: both;
+}
+
+.video {
+	text-align: center;
+	margin-bottom: 80px;
+}
+
