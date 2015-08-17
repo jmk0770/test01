@@ -106,7 +106,7 @@ label{color:grey; font-weight:normal}
     </td>
   </tr>
 </table>
- <input type="hidden" name="user_id" value="${user.user_id}">
+ <input type="hidden" name="userNo" value="${user.userNo}">
  <button class="btn btn-default" onclick="javascript:passwdCheck();"id=save >저장</button>
 </form>
 

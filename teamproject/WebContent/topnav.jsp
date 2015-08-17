@@ -181,7 +181,7 @@
 						    <i class="fa fa-user fa-fw"></i> User Profile</a>
 						  </li>
 					    <li>
-					     <a href="/app/user/getUser1.do?user_id=${user.userNo}">
+					     <a href="/app/user/getUser1.do?userNo=${user.userNo}">
 					     <i class="fa fa-gear fa-fw"></i>Settings</a>
 					    </li>
 						    <li class="divider"></li>
