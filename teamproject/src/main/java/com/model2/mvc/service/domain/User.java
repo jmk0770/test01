@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class User {
 
-  private int user_id;
+  private int userNo;
   private String role;
   private String profile;
   private String state_message;
@@ -18,12 +18,12 @@ public class User {
     
   }
 
-  public int getUser_id() {
-    return user_id;
+  public int getUserNo() {
+    return userNo;
   }
 
-  public void setUser_id(int user_id) {
-    this.user_id = user_id;
+  public void setUserNo(int userNo) {
+    this.userNo = userNo;
   }
 
   public String getRole() {
@@ -92,7 +92,7 @@ public class User {
 
   @Override
   public String toString() {
-    return "User [user_id=" + user_id + ", role=" + role + ", profile="
+    return "User [user_id=" + userNo + ", role=" + role + ", profile="
         + profile + ", state_message=" + state_message + ", join_date="
         + join_date + ", nickname=" + nickname + ", password=" + password
         + ", email=" + email + ", phone=" + phone + "]";

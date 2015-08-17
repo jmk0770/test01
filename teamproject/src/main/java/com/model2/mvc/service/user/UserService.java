@@ -12,7 +12,7 @@ public interface UserService {
 	
 	public User getUser(String email) throws Exception;
 	
-	public User getUser1(String user_id) throws Exception;
+	public User getUser1(String userNo) throws Exception;
   
 	public void updateUser(User user) throws Exception;
 }

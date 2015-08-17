@@ -41,7 +41,7 @@
 </style>
 
 	<!-- Login Modal -->
-  <form name="loginForm"  method="post" action="/app/user/login" target="parent">
+  <form name="loginForm"  method="post" action="/app/user/login" target="_self">
    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content ">
@@ -181,7 +181,7 @@
 						    <i class="fa fa-user fa-fw"></i> User Profile</a>
 						  </li>
 					    <li>
-					     <a href="/app/user/getUser1.do?user_id=${user.user_id}">
+					     <a href="/app/user/getUser1.do?user_id=${user.userNo}">
 					     <i class="fa fa-gear fa-fw"></i>Settings</a>
 					    </li>
 						    <li class="divider"></li>

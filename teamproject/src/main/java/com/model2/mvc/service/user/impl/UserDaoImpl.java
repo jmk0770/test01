@@ -42,9 +42,9 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	
-	public User getUser1(String user_id) throws Exception {
+	public User getUser1(String userNo) throws Exception {
 	  System.out.println("UserDaoImpl::getUser1 start");
-    return sqlSession.selectOne("UserMapper.getUser1", user_id);
+    return sqlSession.selectOne("UserMapper.getUser1", userNo);
   
 	}
 	

@@ -61,7 +61,7 @@ public class UserController {
 
 		System.out.println("/addUser");
 		//Business Logic
-		System.out.println("joinForm에서 들어온 값:: "+user);
+		System.out.println("JoinForm에서 건너온 Data:: "+user);
 		userService.addUser(user);
 		
 		return "redirect:/user/index.jsp";
@@ -84,12 +84,12 @@ public class UserController {
 	
 	/* 회원정보 수정할때 쓰는 getUser1. userId 번호로 회원 정보를 가지고 온다. */
 	 @RequestMapping
-	  public String getUser1( @RequestParam("user_id") String user_id , Model model ) throws Exception {
+	  public String getUser1( @RequestParam("userNo") String userNo , Model model ) throws Exception {
 	    
 	    System.out.println("/getUser1");
 	    
 	    //Business Logic
-	    User user = userService.getUser1(user_id);
+	    User user = userService.getUser1(userNo);
 	    
 	    model.addAttribute("user", user);
 	    System.out.println("getUser1로 가지고온 값:"+user);
@@ -99,11 +99,11 @@ public class UserController {
 	
   
 	@RequestMapping
-	public String updateUserView( @RequestParam("user_id") String user_id , Model model ) throws Exception{
+	public String updateUserView( @RequestParam("userNo") String userNo , Model model ) throws Exception{
 
 		System.out.println("/updateUserView");
 
-		User user = userService.getUser(user_id);
+		User user = userService.getUser(userNo);
 
 		model.addAttribute("user", user);
 		
@@ -115,11 +115,12 @@ public class UserController {
 	public String updateUser(@ModelAttribute("user") User user , @RequestParam(required=false) MultipartFile photo, Model model , HttpSession session) throws Exception{
 
 		System.out.println("/updateUser");
-		System.out.println("ModifyForm에서 건너온 Data:"+user);
-    System.out.println("ModifyForm에서 건너온 Photo:"+photo);
+		System.out.println("ModifyForm에서 건너온 Data:: "+ user);
+    System.out.println("ModifyForm에서 건너온 Photo:: "+ photo);
     
     
-    if (photo.getSize() != 0) {
+   
+     if (photo.getSize() != 0) {
       
       String originFilename = photo.getOriginalFilename();
       int lastDotPosition = originFilename.lastIndexOf(".");
@@ -132,17 +133,18 @@ public class UserController {
       photo.transferTo(newPath);
       user.setProfile(newFilename);
     
-    }
+     }
+   
     
 		
     userService.updateUser(user);
 		
-		int sessionId=((User)session.getAttribute("user")).getUser_id();
-		if(sessionId == user.getUser_id()){
+		int sessionId=((User)session.getAttribute("user")).getUserNo();
+		if(sessionId == user.getUserNo()){
 			session.setAttribute("user", user);
 		}
 		
-		return "redirect:/app/user/getUser1?user_id="+user.getUser_id();
+		return "redirect:/app/user/getUser1?user_id="+user.getUserNo();
 	}
 	
 	

@@ -146,9 +146,6 @@ label{color:grey; font-weight:normal}
 	 }
 	}
 	
-	
-	
-	
 	function passwdCheck(){
 	  
 	  alert("함수진입성공");

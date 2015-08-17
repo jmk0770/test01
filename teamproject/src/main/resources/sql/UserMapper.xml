@@ -7,7 +7,7 @@
 <mapper namespace="UserMapper">
  	
 	 <resultMap id="userSelectMap" type="user">
-    <result property="user_id"        column="user_id"        jdbcType="INTEGER"/>
+    <result property="userNo"        column="user_no"        jdbcType="INTEGER"/>
     <result property="role"           column="role"           jdbcType="VARCHAR"/>
     <result property="profile"        column="profile"        jdbcType="VARCHAR" />  
     <result property="state_message"  column="state_message"  jdbcType="VARCHAR" />
@@ -21,7 +21,7 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addUser"		parameterType="user" >
 	 	INSERT
-		INTO users( user_id , role, join_date, nickname, password, email, phone) 
+		INTO users( user_no , role, join_date, nickname, password, email, phone) 
 		VALUES	 (	userId_seq.nextval ,'user', SYSDATE , #{nickname}, #{password} , #{email:VARCHAR}, 
 							#{phone:VARCHAR})
 	</insert>
@@ -29,7 +29,7 @@
 	  <!-- SQL : SELECT ONE -->
    <select  id="getUser"  parameterType="string"  resultMap="userSelectMap">
     SELECT
-    user_id , role, profile , state_message , join_date , nickname ,  password , phone, email    
+    user_no , role, profile , state_message , join_date , nickname ,  password , phone, email    
     FROM users 
     WHERE email = #{value}
    </select>
@@ -37,9 +37,9 @@
       <!-- SQL : SELECT ONE -->
    <select  id="getUser1"  parameterType="string"  resultMap="userSelectMap">
     SELECT
-    user_id, role, profile , state_message , join_date , nickname ,  password , email , phone    
+    user_no, role, profile , state_message , join_date , nickname ,  password , email , phone    
     FROM users 
-    WHERE user_id = #{value}
+    WHERE user_no = #{value}
    </select>
    
     <!-- SQL : UPDATE -->
@@ -51,7 +51,7 @@
       nickname       = #{nickname} ,
       password       = #{password}
       </set>
-      WHERE user_id = #{user_id}
+      WHERE user_no = #{userNo}
    </update>
 	 	 
 </mapper>

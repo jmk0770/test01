@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-  public User getUser1(String user_id) throws Exception {
+  public User getUser1(String userNo) throws Exception {
     System.out.println("UserService::getUser1");
-    return userDao.getUser1(user_id);
+    return userDao.getUser1(userNo);
   }
   
   public void updateUser(User user) throws Exception {
