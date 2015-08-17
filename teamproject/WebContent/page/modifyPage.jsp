@@ -71,7 +71,7 @@ label{color:grey; font-weight:normal}
   </tr>
   <tr>
     <td><label for="passwdConfirm">새로운 비밀번호 확인</label></td>
-    <td><input id="passwdConfirm" type="password"></td>
+    <td><input name="passwdConfirm" id="passwdConfirm" type="password"></td>
   </tr>
   <tr>
     <td><span id="intorduce">한줄소개</span></td>
@@ -107,7 +107,7 @@ label{color:grey; font-weight:normal}
   </tr>
 </table>
  <input type="hidden" name="user_id" value="${user.user_id}">
- <button class="btn btn-default" id=save >저장</button>
+ <button class="btn btn-default" onclick="javascript:passwdCheck();"id=save >저장</button>
 </form>
 
 </body>
@@ -146,6 +146,28 @@ label{color:grey; font-weight:normal}
 	 }
 	}
 	
+	
+	
+	
+	function passwdCheck(){
+	  
+	  alert("함수진입성공");
+	  var pwd = ${user.password};
+	  alert(pwd);
+	  var checkPwd = document.modiForm.currentPassword.value;
+	  alert(checkPwd);
+	  
+	  if ( checkPwd != pwd ){
+	    
+	    alert("현재 비밀번호를 잘못 입력하셨습니다. 다시 입력 부탁드립니다.");
+	    document.modiForm.currentPassword.focus();
+	    return;
+	  } 
+	  
+	}
+	
+	
+	
 
 	$(function(){
 
@@ -158,7 +180,8 @@ label{color:grey; font-weight:normal}
 	    messages:{
 	      nickname: "닉네임을 입력해주세요",
 	      currentPassword: "비밀번호를 입력해주세요",
-	      passwdConfirm: {equalTo: "비밀번호가 일치하지 않습니다."}
+	      passwdConfirm: {
+	        equalTo: "새로운 비밀번호와 일치하지 않습니다."}
 	    }
 	  });
 	});
