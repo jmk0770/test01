@@ -9,12 +9,12 @@
 <title>정보수정 페이지</title>
 
 <!-- jQuery -->
-<script src="/page/jquery-1.11.3.min.js"></script>
+<script src="/pola_components/js/jquery-1.11.3.min.js"></script>
 
 <!-- getBootStrap CSS / JavaScript -->
-<link rel="stylesheet" href="/page/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/page/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<script src="/page/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/pola_components/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/pola_components/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<script src="/pola_components/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 
 <style>
@@ -45,6 +45,9 @@ input{width:330px; height:35px; background:#F6F6F6}
 </head>
 <body>
 
+
+<form method="post" action="/app/user/updateUser" >
+
 <table>
   <tr>
     <td>이메일</td>
@@ -52,7 +55,7 @@ input{width:330px; height:35px; background:#F6F6F6}
   </tr>
   <tr>
     <td>닉네임</td>
-    <td><input id="nickname" type="text" value="${user.nickname}"></td>
+    <td><input name="nickname" id="nickname" type="text" value="${user.nickname}"></td>
   </tr>
   <tr>
     <td>현재 비밀번호</td>
@@ -60,7 +63,7 @@ input{width:330px; height:35px; background:#F6F6F6}
   </tr>
   <tr>
     <td>새로운 비밀번호</td>
-    <td><input id="newpasswd" type="password"></td>
+    <td><input name="password" id="newpasswd" type="password"></td>
   </tr>
   <tr>
     <td>새로운 비밀번호 확인</td>
@@ -68,7 +71,7 @@ input{width:330px; height:35px; background:#F6F6F6}
   </tr>
   <tr>
     <td><span id="intorduce">자기소개</span></td>
-    <td><textarea name="intorduce" cols=51 rows=5></textarea></td>
+    <td><textarea name="state_message" cols=51 rows=5></textarea></td>
   </tr>
   <tr>
     <td>이메일 알림</td>
@@ -82,10 +85,10 @@ input{width:330px; height:35px; background:#F6F6F6}
     <td>프로필 이미지</td>
     <td>
       <c:if test= "${empty user.profile}" >
-      <div id= profile><img id=userPhoto src="/page/160_profile.png" width="160px" height="160px"></div>
+      <div id= profile><img name=profile id=userPhoto src="/img/160_profile.png" width="160px" height="160px"></div>
       </c:if>
       <c:if test="${!empty user.profile }">
-      <div id= profile><img id=userPhoto src="${user.profile}" width="160px" height="160px"></div>
+      <div id= profile><img name=profile id=userPhoto src="${user.profile}" width="160px" height="160px"></div>
       </c:if>
       <div id= fileUpload>
         <input type='file' class="btn btn-default btEtc" name="photo" id="upload" value='이미지 업로드'> 
@@ -99,8 +102,10 @@ input{width:330px; height:35px; background:#F6F6F6}
     </td>
   </tr>
 </table>
+ <input type="hidden" name="user_id" value="${user.user_id}">
+ <button type="submit" class="btn btn-default" id=save>저장</button>
+</form>
 
- <button class="btn btn-default" id=save>저장</button>
 </body>
 <script>
 

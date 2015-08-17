@@ -46,5 +46,10 @@ public class UserServiceImpl implements UserService{
     System.out.println("UserService::getUser1");
     return userDao.getUser1(user_id);
   }
+  
+  public void updateUser(User user) throws Exception {
+    System.out.println("UserService::updateUser");
+    userDao.updateUser(user);
+  }
 	
 }

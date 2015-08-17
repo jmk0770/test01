@@ -92,13 +92,13 @@ public class UserController {
 	    return "forward:/page/modifyPage.jsp";
 	  }
 	
-  /*	
+  
 	@RequestMapping
-	public String updateUserView( @RequestParam("userId") String userId , Model model ) throws Exception{
+	public String updateUserView( @RequestParam("user_id") String user_id , Model model ) throws Exception{
 
 		System.out.println("/updateUserView");
 		//Business Logic
-		User user = userService.getUser(userId);
+		User user = userService.getUser(user_id);
 
 		model.addAttribute("user", user);
 		
@@ -109,17 +109,17 @@ public class UserController {
 	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
 
 		System.out.println("/updateUser");
-		//Business Logic
+		System.out.println("ModifyForm에서 건너온 Data:"+user);
 		userService.updateUser(user);
 		
-		String sessionId=((User)session.getAttribute("user")).getUserId();
-		if(sessionId.equals(user.getUserId())){
+		int sessionId=((User)session.getAttribute("user")).getUser_id();
+		if(sessionId == user.getUser_id()){
 			session.setAttribute("user", user);
 		}
 		
-		return "redirect:/app/user/getUser?userId="+user.getUserId();
+		return "redirect:/app/user/getUser1?user_Id="+user.getUser_id();
 	}
-	*/
+	
 	
 	@RequestMapping
 	public String loginView() throws Exception{

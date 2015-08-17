@@ -41,5 +41,17 @@
     FROM users 
     WHERE user_id = #{value}
    </select>
+   
+    <!-- SQL : UPDATE -->
+   <update  id="updateUser" parameterType="user" >
+      UPDATE users
+      <set>
+      profile        = #{profile:VARCHAR} ,
+      state_message  = #{state_message},
+      nickname       = #{nickname} ,
+      password       = #{password}
+      </set>
+      WHERE user_id = #{user_id}
+   </update>
 	 	 
 </mapper>
