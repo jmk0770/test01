@@ -176,13 +176,17 @@
 				</a> 
 				<c:if test="${! empty user }">
 					<ul class="dropdown-menu">				
-						  <li><a href="page/myPageMain.jsp"><i
-                class="fa fa-user fa-fw"></i> User Profile</a></li>
-					<li><a href="/app/user/getUser1.do?user_id=${user.user_id}"><i class="fa fa-gear fa-fw"></i>
-                Settings</a></li>
-						<li class="divider"></li>
-						<li><a href="/app/user/logout">
-						<i	class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						  <li>
+						    <a href="page/myPageMain.jsp">
+						    <i class="fa fa-user fa-fw"></i> User Profile</a>
+						  </li>
+					    <li>
+					     <a href="/app/user/getUser1.do?user_id=${user.user_id}">
+					     <i class="fa fa-gear fa-fw"></i>Settings</a>
+					    </li>
+						    <li class="divider"></li>
+						    <li><a href="/app/user/logout">
+						  <i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 					</ul>
 					</c:if>							
 					<c:if test="${ empty user }">

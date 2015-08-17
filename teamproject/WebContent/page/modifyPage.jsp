@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>정보수정 페이지</title>
+<title>◎ 정보수정 페이지</title>
 
 <!-- jQuery -->
 <script src="/pola_components/js/jquery-1.11.3.min.js"></script>
@@ -15,7 +15,8 @@
 <link rel="stylesheet" href="/pola_components/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/pola_components/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <script src="/pola_components/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-
+<script src="/pola_components/js/jquery.validate.js"></script>
+<script src="/pola_components/js/additional-methods.js"></script>
 
 <style>
 
@@ -41,12 +42,15 @@ input{width:330px; height:35px; background:#F6F6F6}
 #userPhoto{margin:5px;}
 #fileUpload{margin-left:180px; position:absolute;}
 
+/* 에러 메시지 */
+label.error {display: block; color: Red;}
+label{color:grey; font-weight:normal}
 </style>
 </head>
 <body>
 
 
-<form method="post" action="/app/user/updateUser" >
+<form id="modiForm" method="post" action="/app/user/updateUser" enctype="multipart/form-data">
 
 <table>
   <tr>
@@ -54,24 +58,24 @@ input{width:330px; height:35px; background:#F6F6F6}
     <td>${user.email}</td>
   </tr>
   <tr>
-    <td>닉네임</td>
-    <td><input name="nickname" id="nickname" type="text" value="${user.nickname}"></td>
+    <td><label for="nicname">* 닉네임</label></td>
+    <td><input name="nickname" id="nickname" type="text" class="required" value="${user.nickname}"></td>
   </tr>
   <tr>
-    <td>현재 비밀번호</td>
-    <td><input id="passwd" type="password"></td>
+    <td><label for="currentPassword">* 현재 비밀번호</label></td>
+    <td><input name="currentPassword" id="currentPassword" class="required" type="password"></td>
   </tr>
   <tr>
-    <td>새로운 비밀번호</td>
-    <td><input name="password" id="newpasswd" type="password"></td>
+    <td><label for="password">새로운 비밀번호</label></td>
+    <td><input name="password" id="password" type="password"></td>
   </tr>
   <tr>
-    <td>새로운 비밀번호 확인</td>
+    <td><label for="passwdConfirm">새로운 비밀번호 확인</label></td>
     <td><input id="passwdConfirm" type="password"></td>
   </tr>
   <tr>
-    <td><span id="intorduce">자기소개</span></td>
-    <td><textarea name="state_message" cols=51 rows=5></textarea></td>
+    <td><span id="intorduce">한줄소개</span></td>
+    <td><textarea name="state_message" cols=51 rows=5>${user.state_message}</textarea></td>
   </tr>
   <tr>
     <td>이메일 알림</td>
@@ -85,10 +89,10 @@ input{width:330px; height:35px; background:#F6F6F6}
     <td>프로필 이미지</td>
     <td>
       <c:if test= "${empty user.profile}" >
-      <div id= profile><img name=profile id=userPhoto src="/img/160_profile.png" width="160px" height="160px"></div>
+      <div id= profile><img id=userPhoto src="/img/160_profile.png" width="160px" height="160px"></div>
       </c:if>
       <c:if test="${!empty user.profile }">
-      <div id= profile><img name=profile id=userPhoto src="${user.profile}" width="160px" height="160px"></div>
+      <div id= profile><img id=userPhoto src="/upload/${user.profile}" width="160px" height="160px"></div>
       </c:if>
       <div id= fileUpload>
         <input type='file' class="btn btn-default btEtc" name="photo" id="upload" value='이미지 업로드'> 
@@ -103,15 +107,11 @@ input{width:330px; height:35px; background:#F6F6F6}
   </tr>
 </table>
  <input type="hidden" name="user_id" value="${user.user_id}">
- <button type="submit" class="btn btn-default" id=save>저장</button>
+ <button class="btn btn-default" id=save >저장</button>
 </form>
 
 </body>
 <script>
-
-
-
-<!-- 파일 미리보기 소스 -->
 
 	$(function(){
 	  $('#upload').on('change', function(){
@@ -120,41 +120,49 @@ input{width:330px; height:35px; background:#F6F6F6}
 	})
 	 
 	 function readURL(input){
-	  //선택된 파일 있다면
+
 	  if(input.files && input.files[0]){
-	   //선택된 파일 이름 가져오기
+
 	   var fileName=input.files[0].name;
-	   //파일 이름에서 뒤의 3글자 가져오기
 	   var ext=fileName.substr(fileName.length-3, fileName.length);
-	   //alert(ext);
-	   //alert(fileName.lastIndexof('.'));
-	   
-	   //파일 이름에서 확장자 가져오기
-	   //var ext=fileName.substr(fileName.lastIndexof('.')+1, fileName.length);
-	   
-	    //확장자를 확인해서 jpg, gif, png가 아니면//함수를 빠져나감
 	   var isCheck=false; 
 	
 	   if(ext.toLowerCase()=='jpg' || ext.toLowerCase()=='gif' || ext.toLowerCase()=='png'){
 	    isCheck=true;              
 	   }
 	   if(isCheck==false){
-	    alert("이미지 파일 아님");
+	    alert("이미지 파일만 업로드 해주세요." + "<br> ex) *.jpg, *.gif, *.png");
 	    return;
 	   }
 	  
-	  // 파일의 내용을 읽어 올 수 있는 파일 객체
+
 	  var reader = new FileReader();
-	  //읽을 파일을 설정
+
 	  reader.readAsDataURL(input.files[0]);          
-	  //파일의 내용이 메모리에 전부 로드되면
-	  //img 태그에 출력
+
 	  reader.onload=function(e){
 	   $('#userPhoto').attr('src', e.target.result);
 	  }          
 	 }
 	}
+	
 
+	$(function(){
+
+	  $("#modiForm").validate({
+	    rules:{
+	      nickname: "required",
+	      currentPassword:"required",
+	      passwdConfirm: {equalTo: "#password" }   
+	    },
+	    messages:{
+	      nickname: "닉네임을 입력해주세요",
+	      currentPassword: "비밀번호를 입력해주세요",
+	      passwdConfirm: {equalTo: "비밀번호가 일치하지 않습니다."}
+	    }
+	  });
+	});
+	
 </script>
 
 </html>

@@ -1,6 +1,9 @@
 package com.model2.mvc.web.user;
 
 
+import java.io.File;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
@@ -97,7 +102,7 @@ public class UserController {
 	public String updateUserView( @RequestParam("user_id") String user_id , Model model ) throws Exception{
 
 		System.out.println("/updateUserView");
-		//Business Logic
+
 		User user = userService.getUser(user_id);
 
 		model.addAttribute("user", user);
@@ -105,19 +110,39 @@ public class UserController {
 		return "forward:/user/updateUser.jsp";
 	}
 
+	@Autowired ServletContext sc;
 	@RequestMapping
-	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+	public String updateUser(@ModelAttribute("user") User user , @RequestParam(required=false) MultipartFile photo, Model model , HttpSession session) throws Exception{
 
 		System.out.println("/updateUser");
 		System.out.println("ModifyForm에서 건너온 Data:"+user);
-		userService.updateUser(user);
+    System.out.println("ModifyForm에서 건너온 Photo:"+photo);
+    
+    
+    if (photo.getSize() != 0) {
+      
+      String originFilename = photo.getOriginalFilename();
+      int lastDotPosition = originFilename.lastIndexOf(".");
+      String extname = originFilename.substring(lastDotPosition);
+      String newFilename = System.currentTimeMillis() + extname;
+      String realUploadPath = sc.getRealPath("/upload");
+      
+      File newPath = new File(realUploadPath + "/" + newFilename);
+     
+      photo.transferTo(newPath);
+      user.setProfile(newFilename);
+    
+    }
+    
+		
+    userService.updateUser(user);
 		
 		int sessionId=((User)session.getAttribute("user")).getUser_id();
 		if(sessionId == user.getUser_id()){
 			session.setAttribute("user", user);
 		}
 		
-		return "redirect:/app/user/getUser1?user_Id="+user.getUser_id();
+		return "redirect:/app/user/getUser1?user_id="+user.getUser_id();
 	}
 	
 	
@@ -157,9 +182,8 @@ public class UserController {
 		
 	}
 	
-	/*
 	@RequestMapping
-	public String logout(HttpSession session ) throws Exception{
+	public String logout(HttpSession session) throws Exception{
 		
 		System.out.println("/logout");
 		
@@ -168,6 +192,7 @@ public class UserController {
 		return "redirect:../../index.jsp";
 	}
 	
+	/*
 	
 	@RequestMapping
 	public String checkDuplication( @RequestParam("userId") String userId , Model model ) throws Exception{
