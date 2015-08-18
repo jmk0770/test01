@@ -21,6 +21,7 @@
 	type="text/css"> -->
 
 
+
 <style type="text/css">
 .navbar .navbar-nav {
 	display: inline-block;
@@ -38,6 +39,8 @@
 	left: initial;
 	min-width: 100px;
 }
+
+#fblogin{background:#3d58a4; border:none}
 </style>
 
 	<!-- Login Modal -->
@@ -64,8 +67,10 @@
         </div><!-- modal-body tag end --> 
 	      
 	       <div class="modal-footer">          
-          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true" style="width:300px;">
-      </fb:login-button>
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="width:300px;">
+          </fb:login-button>
+          <button id=fblogin class="btn btn-success btn-block">페이스북 로그인</button>
+       
         </div> 
         
         <div class="modal-footer">          

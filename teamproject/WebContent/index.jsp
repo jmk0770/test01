@@ -155,6 +155,7 @@
 <script src="/pola_components/js/jquery.innerfade.js"></script>
 <script src="/pola_components/js/bootstrap.min.js"></script>
 <script src="/pola_components/js/topNAV.js"></script>
+
 <script type="text/javascript">
 
 $('#inner-fade').innerfade({
