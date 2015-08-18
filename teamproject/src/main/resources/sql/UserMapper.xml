@@ -47,9 +47,9 @@
       UPDATE users
       <set>
       profile        = #{profile:VARCHAR} ,
-      state_message  = #{state_message},
-      nickname       = #{nickname} ,
-      password       = #{password}
+      state_message  = #{state_message:VARCHAR},
+      nickname       = #{nickname:VARCHAR} ,
+      password       = #{password:VARCHAR}
       </set>
       WHERE user_no = #{userNo}
    </update>

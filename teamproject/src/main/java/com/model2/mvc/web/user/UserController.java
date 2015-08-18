@@ -40,11 +40,11 @@ public class UserController {
 	
 
 	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
+
 	int pageUnit;
 	
 	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
+
 	int pageSize;
 	
 	
@@ -60,39 +60,37 @@ public class UserController {
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
 		System.out.println("/addUser");
-		//Business Logic
-		System.out.println("JoinForm에서 건너온 Data:: "+user);
+
+		System.out.println("JoinForm Forward Data:: "+user);
 		userService.addUser(user);
 		
 		return "redirect:/user/index.jsp";
 	}
 	
-	/* 로그인할때 쓰는 getUser. 이메일로 회원 정보를 가지고 온다. */
+
 	@RequestMapping
 	public String getUser( @RequestParam("email") String email , Model model ) throws Exception {
 		
 		System.out.println("/getUser");
 		
-		//Business Logic
 		User user = userService.getUser(email);
 		model.addAttribute("user", user);
 		
-		System.out.println("getUser로 가지고온 값:"+user);
+		System.out.println("getUser Data:"+user);
 		
 		return "forward:/user/getUser.jsp";
 	}
 	
-	/* 회원정보 수정할때 쓰는 getUser1. userId 번호로 회원 정보를 가지고 온다. */
+	
 	 @RequestMapping
 	  public String getUser1( @RequestParam("userNo") String userNo , Model model ) throws Exception {
 	    
 	    System.out.println("/getUser1");
 	    
-	    //Business Logic
 	    User user = userService.getUser1(userNo);
 	    
 	    model.addAttribute("user", user);
-	    System.out.println("getUser1로 가지고온 값:"+user);
+	    System.out.println("getUser1 Data:"+user);
 	    
 	    return "forward:/page/modifyPage.jsp";
 	  }
@@ -115,37 +113,43 @@ public class UserController {
 	public String updateUser(@ModelAttribute("user") User user , @RequestParam(required=false) MultipartFile photo, Model model , HttpSession session) throws Exception{
 
 		System.out.println("/updateUser");
-		System.out.println("ModifyForm에서 건너온 Data:: "+ user);
-    System.out.println("ModifyForm에서 건너온 Photo:: "+ photo);
+		System.out.println("ModifyForm Forward Data:: "+ user);
+    System.out.println("ModifyForm Forward Photo:: "+ photo);
     
+    User user1 = (User)session.getAttribute("user");
     
+    /* Profile Logic */
+    if (photo.getSize() != 0) {
+    
+     String originFilename = photo.getOriginalFilename();
+     int lastDotPosition = originFilename.lastIndexOf(".");
+     String extname = originFilename.substring(lastDotPosition);
+     String newFilename = System.currentTimeMillis() + extname;
+     String realUploadPath = sc.getRealPath("/upload");
+    
+     File newPath = new File(realUploadPath + "/" + newFilename);
    
-     if (photo.getSize() != 0) {
-      
-      String originFilename = photo.getOriginalFilename();
-      int lastDotPosition = originFilename.lastIndexOf(".");
-      String extname = originFilename.substring(lastDotPosition);
-      String newFilename = System.currentTimeMillis() + extname;
-      String realUploadPath = sc.getRealPath("/upload");
-      
-      File newPath = new File(realUploadPath + "/" + newFilename);
-     
-      photo.transferTo(newPath);
-      user.setProfile(newFilename);
-    
-     }
+     photo.transferTo(newPath);
+     user.setProfile(newFilename);
+   }
+   else {   
+     user.setProfile(user1.getProfile());  
+   }
    
-    
+   /* Password Logic */
+   if(user.getPassword().equals("")){
+      user.setPassword(user1.getPassword());
+   }
+  
+   userService.updateUser(user);
 		
-    userService.updateUser(user);
-		
-		int sessionId=((User)session.getAttribute("user")).getUserNo();
-		if(sessionId == user.getUserNo()){
+   int sessionId=((User)session.getAttribute("user")).getUserNo();
+   if(sessionId == user.getUserNo()){
 			session.setAttribute("user", user);
-		}
+	 }
 		
-		return "redirect:/app/user/getUser1?user_id="+user.getUserNo();
-	}
+		return "redirect:/app/user/getUser1?userNo="+user.getUserNo();
+ }
 	
 	
 	@RequestMapping
@@ -170,13 +174,13 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 			
 			User loginUser = (User) session.getAttribute("user");
-			System.out.println(loginUser.getNickname()+"님 로그인에 성공하였습니다");
+			System.out.println(loginUser.getNickname()+" Welcome !!");
 			
 			return "redirect:../../index.jsp";
 			
 		}
 		else{
-		  System.out.println("비번이 틀렸습니다. 다시 입력 부탁드립니다.");
+		  System.out.println("wrong passwd. try again !");
 		  
 		  return "redirect:../../index.jsp";
 		}

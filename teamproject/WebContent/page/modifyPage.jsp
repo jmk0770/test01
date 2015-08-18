@@ -107,12 +107,14 @@ label{color:grey; font-weight:normal}
   </tr>
 </table>
  <input type="hidden" name="userNo" value="${user.userNo}">
- <button class="btn btn-default" onclick="javascript:passwdCheck();"id=save >저장</button>
+ <button class="btn btn-default" id=save >저장</button>
 </form>
 
 </body>
 <script>
 
+
+ // FileUpload JavaScript //
 	$(function(){
 	  $('#upload').on('change', function(){
 	   readURL(this);
@@ -135,37 +137,16 @@ label{color:grey; font-weight:normal}
 	    return;
 	   }
 	  
+	   var reader = new FileReader();
+	   reader.readAsDataURL(input.files[0]);          
 
-	  var reader = new FileReader();
-
-	  reader.readAsDataURL(input.files[0]);          
-
-	  reader.onload=function(e){
-	   $('#userPhoto').attr('src', e.target.result);
+	   reader.onload=function(e){
+	    $('#userPhoto').attr('src', e.target.result);
 	  }          
 	 }
 	}
 	
-	function passwdCheck(){
-	  
-	  alert("함수진입성공");
-	  var pwd = ${user.password};
-	  alert(pwd);
-	  var checkPwd = document.modiForm.currentPassword.value;
-	  alert(checkPwd);
-	  
-	  if ( checkPwd != pwd ){
-	    
-	    alert("현재 비밀번호를 잘못 입력하셨습니다. 다시 입력 부탁드립니다.");
-	    document.modiForm.currentPassword.focus();
-	    return;
-	  } 
-	  
-	}
-	
-	
-	
-
+ // ValidationCheck JavaScript //
 	$(function(){
 
 	  $("#modiForm").validate({
@@ -177,8 +158,7 @@ label{color:grey; font-weight:normal}
 	    messages:{
 	      nickname: "닉네임을 입력해주세요",
 	      currentPassword: "비밀번호를 입력해주세요",
-	      passwdConfirm: {
-	        equalTo: "새로운 비밀번호와 일치하지 않습니다."}
+	      passwdConfirm: { equalTo: "새로운 비밀번호와 일치하지 않습니다."}
 	    }
 	  });
 	});
