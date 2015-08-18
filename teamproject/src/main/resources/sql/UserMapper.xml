@@ -22,7 +22,7 @@
 	<insert 	id="addUser"		parameterType="user" >
 	 	INSERT
 		INTO users( user_no , role, join_date, nickname, password, email, phone) 
-		VALUES	 (	userId_seq.nextval ,'user', SYSDATE , #{nickname}, #{password} , #{email:VARCHAR}, 
+		VALUES	 (	user_no_seq.nextval ,'user', SYSDATE , #{nickname}, #{password} , #{email:VARCHAR}, 
 							#{phone:VARCHAR})
 	</insert>
 	
